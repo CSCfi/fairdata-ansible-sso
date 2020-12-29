@@ -1,0 +1,28 @@
+---
+- name: Install SSO systemd service files
+  template:
+    src: '{{ item.file }}.j2'
+    dest: '{{ item.dest }}/{{ item.file }}'
+    mode: '0644'
+  with_items:
+  - file: 'fairdata-sso.service'
+    dest: '/etc/systemd/system'
+  - file: 'fairdata-sso.socket'
+    dest: '/etc/systemd/system'
+  - file: 'fairdata-sso.env'
+    dest: '{{ repo_dest }}'
+  become: yes
+  notify: Restart SSO systed service
+  tags: sso-systemd
+
+- name: Ensure SSO systemd service is started
+  systemd:
+    name: '{{ item }}'
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  with_items:
+  - fairdata-sso.service
+  - fairdata-sso.socket
+  become: yes
+  tags: sso-systemd

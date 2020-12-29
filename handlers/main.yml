@@ -1,0 +1,14 @@
+---
+- name: Restart Nginx
+  systemd:
+    name: 'nginx'
+    state: 'restarted'
+  become: yes
+  tags: sso-nginx
+
+- name: Restart SSO systed service
+  systemd:
+    name: 'fairdata-sso'
+    state: 'restarted'
+  become: yes
+  tags: sso-systemd

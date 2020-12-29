@@ -1,0 +1,25 @@
+---
+# Python
+virtualenv_command: virtualenv
+
+# Repository data
+repo_install_method: 'pull'
+repo_version: 'master'
+repo_dest_root: '/opt'
+repo_dest: '{{ repo_dest_root }}/fairdata-sso'
+
+# Application-specific configuration
+application_user: 'root'
+application_group: 'nginx'
+application_environment: 'TEST'
+application_debug: 'false'
+application_log_directory: '/var/log/fairdata-sso'
+application_no_haka: 'false'
+
+# Gunicorn configuration
+gunicorn_bin: '{{ repo_dest }}/venv/bin/gunicorn'
+gunicorn_socket: '/run/fairdata-sso.sock'
+gunicorn_workers: 3
+
+# Nginx configuration
+nginx_custom_certificates: false

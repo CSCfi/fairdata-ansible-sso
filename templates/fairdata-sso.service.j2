@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn instance to serve Fairdata SSO service
+Requires=fairdata-sso.socket
+After=network.target
+
+[Service]
+User={{ application_user }}
+Group={{ application_group }}
+EnvironmentFile={{ repo_dest }}/fairdata-sso.env
+WorkingDirectory={{ repo_dest }}
+ExecStart=/bin/sh -c '${GUNICORN_BIN} --workers ${GUNICORN_WORKERS} wsgi'
+
+[Install]
+WantedBy=multi-user.target

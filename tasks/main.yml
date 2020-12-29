@@ -1,0 +1,20 @@
+---
+- name: Include SSO repository tasks
+  include_tasks: "sso-repository.yml"
+  tags: sso-repository
+
+- name: Include SSO configuration tasks
+  include_tasks: "sso-config.yml"
+  tags: sso-config
+
+- name: Include SSO virtualenv tasks
+  include_tasks: "sso-virtualenv.yml"
+  tags: sso-virtualenv
+
+- name: Include SSO systemd tasks
+  include_tasks: "sso-systemd.yml"
+  tags: sso-systemd
+
+- name: Include SSO nginx tasks
+  include_tasks: "sso-nginx.yml"
+  tags: sso-nginx
