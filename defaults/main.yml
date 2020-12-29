@@ -1,0 +1,60 @@
+---
+# Role control variables
+# ~~~~~~~~~~~~~~~~~~~~~~
+#
+# Variables used to control the role execution.
+run_tests: False
+delete_deployment: False
+
+# Instance variables
+# ~~~~~~~~~~~~~~~~~~
+#
+# Variables affecting the application instance to be deployed.
+instance_name: 'sso'
+instance_domain: 'fairdata.fi'
+
+# Python variables
+# ~~~~~~~~~~~~~~~~
+#
+# Variables describing the python compiler available on target hosts.
+virtualenv_command: 'virtualenv'
+
+# Repository variables
+# ~~~~~~~~~~~~~~~~~~~~
+#
+# Variables affecting the source repository used for the deployment.
+repo_install_method: 'pull'
+repo_version: 'master'
+repo_dest_root: '/opt'
+repo_dest: '{{ repo_dest_root }}/fairdata-{{ instance_name }}'
+
+# Application variables
+# ~~~~~~~~~~~~~~~~~~~~~
+#
+# Variables affecting the application configuration.
+application_user: 'root'
+application_group: 'nginx'
+application_environment: 'PRODUCTION'
+application_debug: 'false'
+application_fdwe_url: ''
+application_log_directory: '/var/log/fairdata-{{ instance_name }}'
+application_no_haka: 'false'
+
+# Gunicorn variables
+# ~~~~~~~~~~~~~~~~~~
+#
+# Variables used for configuring gunicorn.
+gunicorn_bin: '{{ repo_dest }}/venv/bin/gunicorn'
+gunicorn_socket: '/run/fairdata-{{ instance_name }}.sock'
+gunicorn_workers: 3
+
+# Nginx configuration
+# ~~~~~~~~~~~~~~~~~~~
+#
+# Variables used for configuring Nginx proxy.
+#
+# Example:
+#   nginx_custom_certificates: True
+#   nginx_ssl_certificate: '/etc/pki/tls/certs/fairdata.fi.crt.pem'
+#   nginx_ssl_certificate_key: '/etc/pki/tls/private/fairdata.fi.key.pem'
+nginx_custom_certificates: False

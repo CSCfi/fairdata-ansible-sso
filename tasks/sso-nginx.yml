@@ -1,0 +1,35 @@
+---
+- block:
+  - name: Install SSO Nginx server configuration
+    template:
+      src: 'fairdata-sso-nginx.conf.j2'
+      dest: '/etc/nginx/sites-available/{{ instance_name }}.{{ instance_domain }}'
+      mode: '0644'
+    become: yes
+    notify: Restart Nginx
+    tags: sso-nginx
+
+  - name: Enable SSO Nginx server configuration
+    file:
+      path: '/etc/nginx/sites-enabled/{{ instance_name }}.{{ instance_domain }}'
+      src: '/etc/nginx/sites-available/{{ instance_name }}.{{ instance_domain }}'
+      state: link
+    become: yes
+    notify: Restart Nginx
+    tags: sso-nginx
+
+  when: not delete_deployment
+
+- block:
+  - name: Ensure SSO Nginx server files are deleted
+    file:
+      path: '/etc/nginx/{{ item }}/{{ instance_name }}.{{ instance_domain }}'
+      state: absent
+    with_items:
+    - sites-enabled
+    - sites-available
+    become: yes
+    notify: Restart Nginx
+    tags: sso-nginx
+
+  when: delete_deployment

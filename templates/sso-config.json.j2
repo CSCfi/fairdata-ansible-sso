@@ -1,0 +1,13 @@
+{
+    "ENVIRONMENT": "{{ application_environment }}",
+    "DEBUG": {{ application_debug }},
+    "FDWE_URL": "{{ application_fdwe_url }}",
+    "MAX_AGE": 86400,
+    "DOMAIN": "{{ instance_domain }}",
+    "LOG_ROOT": "{{ application_log_directory }}",
+    "SSO_HOST": "0.0.0.0",
+    "SSO_PORT": 443,
+    "SSO_API": "https://{{ instance_name }}.{{ instance_domain }}",
+    "AAI_PROXY": "{{ application_aai_proxy }}",
+    "NO_HAKA": {{ application_no_haka }}
+}
