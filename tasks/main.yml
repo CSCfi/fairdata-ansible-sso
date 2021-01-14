@@ -18,3 +18,7 @@
 - name: Include SSO nginx tasks
   include_tasks: "sso-nginx.yml"
   tags: sso-nginx
+
+- name: Include SSO test tasks
+  include_tasks: "sso-test.yml"
+  tags: sso-test
