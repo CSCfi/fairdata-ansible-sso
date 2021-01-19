@@ -9,7 +9,7 @@
 - name: Install SSO Nginx configuration
   template:
     src: 'fairdata-sso-nginx.conf.j2'
-    dest: '/etc/nginx/conf.d/fairdata-sso.conf'
+    dest: '/etc/nginx/conf.d/fairdata-sso-{{ repo_version }}.conf'
     mode: '0644'
   become: yes
   notify: Restart Nginx

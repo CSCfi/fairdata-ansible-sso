@@ -2,7 +2,7 @@
 - name: Install SSO systemd service files
   template:
     src: '{{ item.file }}.j2'
-    dest: '{{ item.dest }}/{{ item.file }}'
+    dest: '{{ item.dest }}/{{ item.file }}-{{ repo_version }}'
     mode: '0644'
   with_items:
   - file: 'fairdata-sso.service'
@@ -22,7 +22,7 @@
     enabled: yes
     daemon_reload: yes
   with_items:
-  - fairdata-sso.service
-  - fairdata-sso.socket
+  - 'fairdata-sso-{{ repo_version }}.service'
+  - 'fairdata-sso-{{ repo_version }}.socket'
   become: yes
   tags: sso-systemd
