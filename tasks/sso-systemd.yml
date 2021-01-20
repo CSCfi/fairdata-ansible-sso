@@ -2,13 +2,13 @@
 - name: Install SSO systemd service files
   template:
     src: '{{ item.file }}.j2'
-    dest: '{{ item.dest }}/{{ item.file }}-{{ repo_version }}'
+    dest: '{{ item.dest }}'
     mode: '0644'
   with_items:
   - file: 'fairdata-sso.service'
-    dest: '/etc/systemd/system'
+    dest: '/etc/systemd/system/fairdata-sso-{{ repo_version }}.service'
   - file: 'fairdata-sso.socket'
-    dest: '/etc/systemd/system'
+    dest: '/etc/systemd/system/fairdata-sso-{{ repo_version }}.socket'
   - file: 'fairdata-sso.env'
     dest: '{{ repo_dest }}'
   become: yes
