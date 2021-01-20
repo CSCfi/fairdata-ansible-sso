@@ -1,24 +1,35 @@
 ---
 - name: Include SSO repository tasks
   include_tasks: "sso-repository.yml"
+  when: not delete_deployment
   tags: sso-repository
 
 - name: Include SSO configuration tasks
   include_tasks: "sso-config.yml"
+  when: not delete_deployment
   tags: sso-config
 
 - name: Include SSO virtualenv tasks
   include_tasks: "sso-virtualenv.yml"
+  when: not delete_deployment
   tags: sso-virtualenv
 
 - name: Include SSO systemd tasks
   include_tasks: "sso-systemd.yml"
+  when: not delete_deployment
   tags: sso-systemd
 
 - name: Include SSO nginx tasks
   include_tasks: "sso-nginx.yml"
+  when: not delete_deployment
   tags: sso-nginx
 
 - name: Include SSO test tasks
   include_tasks: "sso-test.yml"
+  when: not delete_deployment
   tags: sso-test
+
+- name: Include SSO deployment delete tasks
+  include_tasks: "sso-delete.yml"
+  when: delete_deployment
+  tags: sso-delete

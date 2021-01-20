@@ -26,3 +26,6 @@ gunicorn_workers: 3
 
 # Nginx configuration
 nginx_custom_certificates: false
+
+# Delete deployment
+delete_deployment: false
