@@ -6,11 +6,11 @@
     mode: '0644'
   with_items:
   - file: 'fairdata-sso.service'
-    dest: '/etc/systemd/system/fairdata-sso-{{ repo_version }}.service'
+    dest: '/etc/systemd/system/{{ instance_name }}.service'
   - file: 'fairdata-sso.socket'
-    dest: '/etc/systemd/system/fairdata-sso-{{ repo_version }}.socket'
+    dest: '/etc/systemd/system/{{ instance_name }}.socket'
   - file: 'fairdata-sso.env'
-    dest: '{{ repo_dest }}'
+    dest: '{{ repo_dest }}/fairdata-sso.env'
   become: yes
   notify: Restart SSO systed service
   tags: sso-systemd
@@ -22,7 +22,7 @@
     enabled: yes
     daemon_reload: yes
   with_items:
-  - 'fairdata-sso-{{ repo_version }}.service'
-  - 'fairdata-sso-{{ repo_version }}.socket'
+  - '{{ instance_name }}.service'
+  - '{{ instance_name }}.socket'
   become: yes
   tags: sso-systemd
