@@ -15,6 +15,7 @@
     key_file: '{{ repo_deploy_key }}'
     accept_hostkey: 'yes'
     dest: '{{ repo_dest }}'
+    force: yes
   when: repo_install_method == 'pull'
   tags: sso-repository
 
