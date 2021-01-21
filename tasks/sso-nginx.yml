@@ -6,11 +6,20 @@
   become: yes
   tags: sso-nginx
 
-- name: Install SSO Nginx configuration
+- name: Install SSO Nginx server configuration
   template:
     src: 'fairdata-sso-nginx.conf.j2'
-    dest: '/etc/nginx/conf.d/{{ instance_name }}.conf'
+    dest: '/etc/nginx/sites-available/{{ instance_name }}.conf'
     mode: '0644'
+  become: yes
+  notify: Restart Nginx
+  tags: sso-nginx
+
+- name: Enable SSO Nginx server configuration
+  file:
+    path: '/etc/nginx/sites-enabled/{{ instance_name }}.conf'
+    src: '/etc/nginx/sites-available/{{ instance_name }}.conf'
+    state: link
   become: yes
   notify: Restart Nginx
   tags: sso-nginx
