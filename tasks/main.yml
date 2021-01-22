@@ -26,7 +26,9 @@
 
 - name: Include SSO test tasks
   include_tasks: "sso-test.yml"
-  when: not delete_deployment
+  when:
+    - not delete_deployment
+    - run_tests
   tags: sso-test
 
 - name: Include SSO deployment delete tasks

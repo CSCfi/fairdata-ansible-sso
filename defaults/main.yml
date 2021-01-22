@@ -29,3 +29,6 @@ nginx_custom_certificates: false
 
 # Delete deployment
 delete_deployment: false
+
+# Tests
+run_tests: false
