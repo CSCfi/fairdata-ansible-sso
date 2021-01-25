@@ -6,9 +6,9 @@
     mode: '0644'
   with_items:
   - file: 'fairdata-sso.service'
-    dest: '/etc/systemd/system/{{ instance_name }}.service'
+    dest: '/etc/systemd/system/fairdata-{{ instance_name }}.service'
   - file: 'fairdata-sso.socket'
-    dest: '/etc/systemd/system/{{ instance_name }}.socket'
+    dest: '/etc/systemd/system/fairdata-{{ instance_name }}.socket'
   - file: 'fairdata-sso.env'
     dest: '{{ repo_dest }}/fairdata-sso.env'
   become: yes
@@ -22,7 +22,7 @@
     enabled: yes
     daemon_reload: yes
   with_items:
-  - '{{ instance_name }}.service'
-  - '{{ instance_name }}.socket'
+  - 'fairdata-{{ instance_name }}.service'
+  - 'fairdata-{{ instance_name }}.socket'
   become: yes
   tags: sso-systemd

@@ -2,11 +2,11 @@
     "ENVIRONMENT": "{{ application_environment }}",
     "DEBUG": {{ application_debug }},
     "MAX_AGE": 86400,
-    "DOMAIN": "{{ application_domain }}",
+    "DOMAIN": "{{ instance_domain }}",
     "LOG_ROOT": "{{ application_log_directory }}",
     "SSO_HOST": "0.0.0.0",
     "SSO_PORT": 443,
-    "SSO_API": "{{ application_public_url }}",
+    "SSO_API": "https://{{ instance_name }}.{{ instance_domain }}",
     "AAI_PROXY": "{{ application_aai_proxy }}",
     "NO_HAKA": {{ application_no_haka }}
 }

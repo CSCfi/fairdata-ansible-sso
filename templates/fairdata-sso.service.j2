@@ -1,6 +1,6 @@
 [Unit]
 Description=Gunicorn instance to serve Fairdata SSO service
-Requires={{ instance_name }}.socket
+Requires=fairdata-{{ instance_name }}.socket
 After=network.target
 
 [Service]
