@@ -12,3 +12,9 @@
     state: 'restarted'
   become: yes
   tags: sso-systemd
+
+- name: Reload systed daemon
+  systemd:
+    daemon_reload: yes
+  become: yes
+  tags: sso-systemd

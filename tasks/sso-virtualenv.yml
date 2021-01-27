@@ -1,19 +1,22 @@
 ---
-- name: Install SSO requirements in virtualenv with pip
-  pip:
-    requirements: '{{ repo_dest }}/requirements.txt'
-    virtualenv: '{{ repo_dest }}/venv'
-    virtualenv_command: '{{ virtualenv_command }}'
-  become: yes
-  become_user: '{{ application_user }}'
-  tags: sso-virtualenv
+- block:
+  - name: Install SSO requirements in virtualenv with pip
+    pip:
+      requirements: '{{ repo_dest }}/requirements.txt'
+      virtualenv: '{{ repo_dest }}/venv'
+      virtualenv_command: '{{ virtualenv_command }}'
+    become: yes
+    become_user: '{{ application_user }}'
+    tags: sso-virtualenv
 
-- name: Ensure virtualenv is owned by the application user group
-  file:
-    path: '{{ repo_dest }}/venv'
-    owner: '{{ application_user }}'
-    group: '{{ application_group }}'
-    recurse: yes
-    state: directory
-  become: yes
-  tags: sso-virtualenv
+  - name: Ensure virtualenv is owned by the application user group
+    file:
+      path: '{{ repo_dest }}/venv'
+      owner: '{{ application_user }}'
+      group: '{{ application_group }}'
+      recurse: yes
+      state: directory
+    become: yes
+    tags: sso-virtualenv
+
+  when: not delete_deployment

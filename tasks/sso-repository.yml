@@ -1,29 +1,40 @@
 ---
-- name: Ensure repository directory exists
+- block:
+  - name: Ensure repository directory exists
+    file:
+      path: '{{ repo_dest }}'
+      owner: '{{ deployer }}'
+      recurse: yes
+      state: 'directory'
+    become: yes
+    tags: sso-repository
+
+  - name: Fetch SSO repository sources with git
+    git:
+      repo: '{{ repo_url }}'
+      version: '{{ repo_version }}'
+      key_file: '{{ repo_deploy_key }}'
+      accept_hostkey: 'yes'
+      dest: '{{ repo_dest }}'
+      force: yes
+    when: repo_install_method == 'pull'
+    tags: sso-repository
+
+  - name: Ensure repository contents are owned by the application user group
+    file:
+      path: '{{ repo_dest }}'
+      group: '{{ application_group }}'
+      recurse: yes
+      state: directory
+    become: yes
+    tags: sso-repository
+
+  when: not delete_deployment
+
+- name: Ensure repository directory is deleted
   file:
     path: '{{ repo_dest }}'
-    owner: '{{ deployer }}'
-    recurse: yes
-    state: 'directory'
+    state: 'absent'
   become: yes
-  tags: sso-repository
-
-- name: Fetch SSO repository sources with git
-  git:
-    repo: '{{ repo_url }}'
-    version: '{{ repo_version }}'
-    key_file: '{{ repo_deploy_key }}'
-    accept_hostkey: 'yes'
-    dest: '{{ repo_dest }}'
-    force: yes
-  when: repo_install_method == 'pull'
-  tags: sso-repository
-
-- name: Ensure repository contents are owned by the application user group
-  file:
-    path: '{{ repo_dest }}'
-    group: '{{ application_group }}'
-    recurse: yes
-    state: directory
-  become: yes
+  when: delete_deployment
   tags: sso-repository
