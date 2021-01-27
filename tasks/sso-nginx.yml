@@ -1,12 +1,5 @@
 ---
 - block:
-  - name: Ensure Nginx is installed
-    yum:
-      name: 'nginx'
-      state: 'latest'
-    become: yes
-    tags: sso-nginx
-
   - name: Install SSO Nginx server configuration
     template:
       src: 'fairdata-sso-nginx.conf.j2'
