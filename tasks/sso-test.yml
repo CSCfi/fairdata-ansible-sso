@@ -1,0 +1,5 @@
+---
+- name: Run integration tests
+  command: '{{ repo_dest }}/tests/run-tests'
+  become: yes
+  tags: sso-test

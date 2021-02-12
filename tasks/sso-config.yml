@@ -1,0 +1,43 @@
+---
+- block:
+  - name: Ensure directories exist
+    file:
+      path: '{{ application_log_directory }}'
+      owner: '{{ application_user }}'
+      group: '{{ application_group }}'
+      state: 'directory'
+      mode: '0755'
+    become: yes
+    tags: sso-config
+
+  - name: Copy application settings
+    template:
+      src: 'sso-config.json.j2'
+      dest: '{{ repo_dest }}/config.json'
+      owner: '{{ application_user }}'
+      group: '{{ application_group }}'
+      mode: '0640'
+    become: yes
+    notify: Restart SSO systemd service
+    tags: sso-config
+
+  - name: Copy saml settings
+    copy:
+      src: '{{ saml_settings_file }}'
+      dest: '{{ repo_dest }}/saml.json'
+      owner: '{{ application_user }}'
+      group: '{{ application_group }}'
+      mode: '0640'
+    become: yes
+    notify: Restart SSO systemd service
+    tags: sso-config
+
+  when: not delete_deployment
+
+- name: Delete data directories
+  file:
+    path: '{{ application_log_directory }}'
+    state: 'absent'
+  become: yes
+  when: delete_deployment
+  tags: sso-config
