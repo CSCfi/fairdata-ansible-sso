@@ -36,9 +36,14 @@ application_user: 'root'
 application_group: 'nginx'
 application_environment: 'PRODUCTION'
 application_debug: 'false'
-application_fdwe_url: ''
+application_config: '{{ repo_dest }}/config.json'
+application_saml_config: '{{ repo_dest }}/saml.json'
 application_log_directory: '/var/log/fairdata-{{ instance_name }}'
 application_no_haka: 'false'
+
+application_fdwe_url: 'https://matomo.{{ instance_domain }}/fdwe.js'
+application_fdwe_matomo_api: 'https://matomo.{{ instance_domain }}/fdwe.php'
+application_fdwe_site_id: 1
 
 # Gunicorn variables
 # ~~~~~~~~~~~~~~~~~~
