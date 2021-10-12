@@ -8,7 +8,7 @@
 
 - name: Restart SSO systemd service
   systemd:
-    name: 'fairdata-sso'
+    name: 'fairdata-{{ instance_name }}'
     state: 'restarted'
   become: yes
   tags: sso-systemd
