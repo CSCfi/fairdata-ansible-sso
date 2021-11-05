@@ -10,6 +10,14 @@
     become: yes
     tags: sso-config
 
+  - name: Create SSO logrotation
+    template:
+      src: 'fairdata-sso-logrotation.conf.j2'
+      dest: '/etc/logrotate.d/fairdata-{{ instance_name }}'
+      mode: '0644'
+    become: yes
+    tags: sso-config
+
   - name: Copy application settings
     template:
       src: 'sso-config.json.j2'
