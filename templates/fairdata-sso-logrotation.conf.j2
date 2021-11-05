@@ -1,0 +1,9 @@
+{{ application_log_directory }}/*.log {
+    daily
+    rotate 90
+    copytruncate
+    dateext
+    compress
+    notifempty
+    missingok
+}
